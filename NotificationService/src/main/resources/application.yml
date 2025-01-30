@@ -1,14 +1,19 @@
 spring:
   application:
-    name: OrderService
+    name: NotificationService
+  cloud:
+    function:
+      web:
+        path: /functions
 
 server:
-  port: 9098
+  port: 9097
 
 eureka:
   client:
     service-url:
       defaultZone: http://localhost:8761/eureka
+
 
 management:
   endpoints:
@@ -17,8 +22,8 @@ management:
         include:
           - '*'
   info:
-   env:
-    enabled: true
+    env:
+      enabled: true
   endpoint:
     shutdown:
       access: none
