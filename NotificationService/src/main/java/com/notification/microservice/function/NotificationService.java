@@ -20,6 +20,7 @@ public class NotificationService {
         return (message) -> "Hello, how are you doing? "+message;
     }
 
+    @Bean
     public Function<OrderInformation, String> orderNotification() {
 
         return (orderInformation -> {
@@ -33,6 +34,6 @@ public class NotificationService {
     }
 
     private void send(OrderInformation orderInformation) {
-        
+
     }
 }
