@@ -1,34 +1,48 @@
+server:
+  port: 9098
+
+
 spring:
   application:
     name: OrderService
   cloud:
     function:
       definition: consumeAck
-
     stream:
+      kafka:
+        binder:
+          brokers:
+            - localhost:9092
       bindings:
-        # configure spring cloud stream - receive order notification
         orderCreatedEvent-out-0:
           destination: order.created
           contentType: application/json
           group: ${spring.application.name}
-        # configure spring cloud stream - receive order notification
         consumeAck-in-0:
           destination: order.ack
           contentType: application/json
           group: ${spring.application.name}
+
+
+
   # configure rabbitMQ
-  rabbitmq:
-    host: localhost
-    port: 5672
-    username: guest
-    password: guest
-# configure spring cloud stream
+#  rabbitmq:
+#    host: localhost
+#    port: 5672
+#    username: guest
+#    password: guest
 
-
-
-server:
-  port: 9098
+#        bindings:
+#          # configure spring cloud stream - receive order notification
+#          orderCreatedEvent-out-0:
+#            destination: order.created
+#            contentType: application/json
+#            group: ${spring.application.name}
+#          # configure spring cloud stream - receive order notification
+#          consumeAck-in-0:
+#            destination: order.ack
+#            contentType: application/json
+#            group: ${spring.application.name}
 
 eureka:
   client:
