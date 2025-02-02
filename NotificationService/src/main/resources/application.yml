@@ -3,8 +3,34 @@ spring:
     name: NotificationService
   cloud:
     function:
+      definition: orderEventReceiver
       web:
         path: /functions
+    stream:
+      bindings:
+        # configure spring cloud stream - receive order notification
+        orderEventReceiver-in-0:
+          destination: order.created
+          contentType: application/json
+          group: ${spring.application.name}
+        # configure spring cloud stream - acknowledgement order notification
+        orderEventReceiver-out-0:
+          destination: order.ack
+          contentType: application/json
+          group: ${spring.application.name}
+
+
+
+
+
+  # configure rabbitMQ
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+
+
 
 server:
   port: 9097
